@@ -106,3 +106,13 @@ View:
 = form.toHtml
 
 ```
+
+### Form validation composition
+Each `Validator[T]` is just `T => List[String]`. When returned error list is empty field is valid.
+Validators can be composed like:
+
+```scala
+val name = IntField("age", _.age, GreaterThan(5) & LessThan(50)) // value > 5 and value < 50
+````
+
+Possible operators are: `&` (and), `|` (or), `^` (xor)

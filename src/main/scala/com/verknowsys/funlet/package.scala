@@ -29,9 +29,7 @@ package object funlet {
 
     // form validators
     type Validator[T] = T => List[String]
-
-
-    implicit def validatorJoin[T](a: Validator[T]) = new Validators.JoinValidator(a)
+    implicit def validatorJoin[T](a: T => List[String]) = new Validators.JoinValidator(a)
 
     // misc
     implicit def Pair2Map(pair: (String, Any)) = Map(pair)

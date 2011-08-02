@@ -35,10 +35,12 @@ trait Validators {
             case (ls1, ls2) => ls1 ++ ls2
         }
     }
-    class JoinValidator[T](a: Validator[T]){
-        def &(b: Validator[T]): Validator[T] = Validators.AndValidator(a,b)
-        def |(b: Validator[T]): Validator[T] = Validators.OrValidator(a,b)
-        def ^(b: Validator[T]): Validator[T] = Validators.XorValidator(a,b)
+
+
+    class JoinValidator[T](a: T => List[String]){
+        def &(b: T => List[String]): T => List[String] = Validators.AndValidator(a,b)
+        def |(b: T => List[String]): T => List[String] = Validators.OrValidator(a,b)
+        def ^(b: T => List[String]): T => List[String] = Validators.XorValidator(a,b)
     }
 
 }
