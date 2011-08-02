@@ -13,3 +13,5 @@ libraryDependencies ++= Seq(
     "org.fusesource.scalate" % "scalate-core" % "1.5.0",
     "org.scalatest" %% "scalatest" % "1.6.1" % "test"
 )
+
+publishTo := Some(Resolver.file("VerKnowSys", new java.io.File("/vks/repo")))
