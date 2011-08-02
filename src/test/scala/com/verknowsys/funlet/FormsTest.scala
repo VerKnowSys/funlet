@@ -6,7 +6,7 @@ import org.scalatest.matchers._
 trait MyFields {
     self: Form[_] =>
 
-    class FloatField(name: String, getter: Entity => Float, validators: Validator[Float]*)(implicit form: Form[Entity]) extends Field(name, getter, validators:_*){
+    class FloatField(name: String, getter: Entity => Float, validator: Validator[Float])(implicit form: Form[Entity]) extends Field(name, getter, validator){
         def decode(param: String) = try { Some(param.toFloat) } catch { case ex: java.lang.NumberFormatException => None }
     }
 }

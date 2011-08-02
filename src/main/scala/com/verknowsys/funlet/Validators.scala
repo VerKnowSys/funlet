@@ -13,8 +13,6 @@ trait Validators {
     def LessThanEqual[T](v: T)(implicit ord: Ordering[T]): Validator[T] = i => if(ord.lteq(i, v)) Nil else List("Must be less than or equal " + v)
     def GreaterThanEqual[T](v: T)(implicit ord: Ordering[T]): Validator[T] = i => if(ord.gteq(i, v)) Nil else List("Must be greater than or equal " + v)
 
-    type Validator[T] = T => List[String]
-
     case class AndValidator[T](a: Validator[T], b: Validator[T]) extends Validator[T] {
         def apply(value: T) = a(value) match {
             case Nil => b(value)
@@ -37,4 +35,13 @@ trait Validators {
             case (ls1, ls2) => ls1 ++ ls2
         }
     }
+    class JoinValidator[T](a: Validator[T]){
+        def &(b: Validator[T]): Validator[T] = Validators.AndValidator(a,b)
+        def |(b: Validator[T]): Validator[T] = Validators.OrValidator(a,b)
+        def ^(b: Validator[T]): Validator[T] = Validators.XorValidator(a,b)
+    }
+
 }
+
+object Validators extends Validators
+
