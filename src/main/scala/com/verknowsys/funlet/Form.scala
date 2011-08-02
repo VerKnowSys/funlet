@@ -2,15 +2,6 @@ package com.verknowsys.funlet
 
 import scala.xml.{NodeSeq, Null}
 
-trait Validators {
-    val NotEmpty: Validator[String] = s => if(s.isEmpty) Some("Must not be empty") else None
-    def LessThan(v: Int): Validator[Int] = i => if(i < v) None else Some("Must be less than " + v)
-    def GreaterThan(v: Int): Validator[Int] = i => if(i > v) None else Some("Must be greater than " + v)
-
-    def LessThanEqual(v: Int): Validator[Int] = i => GreaterThan(i)(v)
-    def GreaterThanEqual(v: Int): Validator[Int] = i => LessThan(i)(v)
-}
-
 abstract trait BaseForm {
     def toHtml: NodeSeq
 }

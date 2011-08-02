@@ -5,11 +5,11 @@ import scala.xml.NodeSeq
 trait CommonFields {
     self: Form[_] =>
 
-    class StringField(name: String, getter: Entity => String, validators: Validator[String]*)(implicit form: Form[Entity]) extends Field(name, getter, validators:_*){
+    class StringField(name: String, getter: Entity => String, validator: Validator[String] = EmptyValidator)(implicit form: Form[Entity]) extends Field(name, getter, validator){
         def decode(param: String) = Some(param)
     }
 
-    class IntField(name: String, getter: Entity => Int, validators: Validator[Int]*)(implicit form: Form[Entity]) extends Field(name, getter, validators:_*){
+    class IntField(name: String, getter: Entity => Int, validator: Validator[Int] = EmptyValidator)(implicit form: Form[Entity]) extends Field(name, getter, validator){
         def decode(param: String) = try { Some(param.toInt) } catch { case ex: java.lang.NumberFormatException => None }
     }
 

@@ -26,7 +26,7 @@ package object funlet {
 
     // forms
     implicit def fieldToOption[E,T](field: Field[E, T]) = field.value
-    type Validator[T] = Function1[T, Option[String]]
+    type Validator[T] = T => List[String]
 
     // misc
     implicit def Pair2Map(pair: (String, Any)) = Map(pair)

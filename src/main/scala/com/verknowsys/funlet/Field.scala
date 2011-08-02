@@ -3,7 +3,7 @@ package com.verknowsys.funlet
 import java.security._
 import java.math._
 
-abstract class Field[Entity, T](val name: String, getter: Entity => T, validators: Validator[T]*)(implicit val form: Form[Entity]) {
+abstract class Field[Entity, T](val name: String, getter: Entity => T, validator: Validator[T] = EmptyValidator)(implicit val form: Form[Entity]) {
     def decode(param: String): Option[T]
     def encode(value: T): String = value.toString
 
@@ -12,7 +12,7 @@ abstract class Field[Entity, T](val name: String, getter: Entity => T, validator
     def calculateValue: (Option[T], Seq[String]) = {
         val value = form.params.get(name).map(decode) getOrElse form.entity.map(getter)
         val errors = value match {
-            case Some(v) => validators.view map { _(v) } collect { case Some(e) => e }
+            case Some(v) => validator(v)
             case None if form.isSubmitted => List("Is invalid")
             case _ => Nil
         }
