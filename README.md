@@ -97,12 +97,12 @@ object UserEndpoint extends Endpoint {
 }
 ```
 
-View:
+View (.jade):
 
-```haml
+```jade
 -@ val form: BaseForm // define values for template, staticly checked
 
-%h3 New user
+h3 New user
 = form.toHtml
 
 ```

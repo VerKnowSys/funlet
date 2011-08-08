@@ -19,7 +19,10 @@ trait Endpoint extends PartialFunction[Request, Response] {
     protected def _routes(implicit req: Request) = routes(req)
 
     // utils
-    def render(name: String, attributes:(String, Any)*) = new RenderTemplateResponse(name, attributes.toMap)
+
+    def defaultTemplateExtension = ".jade"
+
+    def render(name: String, attributes:(String, Any)*) = new RenderTemplateResponse(name + defaultTemplateExtension, attributes.toMap)
 
     def redirect(path: String, flash: Map[String, Any] = Map(), session: Map[String, Any] = Map()) = new RedirectResponse(path, session = session)
 
