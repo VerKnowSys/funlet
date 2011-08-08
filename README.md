@@ -25,6 +25,8 @@ class Main extends MainEndpoint {
 }
 ```
 
+See http://github.com/VerKnowSys/funlet-example for full funlet-based webapp example.
+
 # Composition of endpoints
 
 ```scala
